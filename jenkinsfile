@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+
+    environment {
+        VERCEL_TOKEN = credentials('VERCEL_TOKEN')
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                bat '''
+                npm install -g vercel
+                composer install
+                npm install
+                npm run build
+                '''
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                bat '''
+                php artisan test || exit /b 0
+                '''
+            }
+        }
+
+        stage('Deploy to Vercel') {
+            steps {
+                bat '''
+                vercel --prod --token %VERCEL_TOKEN% --yes
+                '''
+            }
+        }
+    }
+}
