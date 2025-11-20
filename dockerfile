@@ -1,7 +1,5 @@
 FROM php:8.2.12-fpm
 
-
-
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -11,7 +9,6 @@ RUN apt-get update && apt-get install -y \
     libonig-dev \
     && docker-php-ext-install pdo pdo_mysql mbstring zip
 
-
 WORKDIR /var/www/html
 COPY . .
 RUN curl -sS https://getcomposer.org/installer | php -- \
@@ -19,5 +16,4 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
     && composer install
 
 EXPOSE 9000
-
 CMD ["php-fpm"]
