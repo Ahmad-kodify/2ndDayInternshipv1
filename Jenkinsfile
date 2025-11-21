@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         SSH_KEY = credentials('jenkins-ssh-key')   // SSH private key stored in Jenkins
-        SERVER_USER = "ubuntu"                     // change if needed
+        SERVER_USER = "ubuntu"                     // change if needed yes
         SERVER_IP = "16.171.39.254"                  // your EC2 instance IP
         PROJECT_DIR = "/var/www/laravel-app"       // your Laravel app path on EC2
     }
